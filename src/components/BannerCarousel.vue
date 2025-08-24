@@ -22,7 +22,7 @@ import { ref } from 'vue'
 
 const slide = ref(0)
 
-import logoFix from '../assets/Portada_FIX.png'
+import logoFix from '../assets/cafe2.jpg'
 
 const banners = [
   logoFix,
