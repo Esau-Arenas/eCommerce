@@ -50,14 +50,14 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useCartStore } from 'stores/cart'
-// import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 // ✅ Declarar prop correctamente
 defineProps<{ isOpen: boolean }>()
 const emit = defineEmits(['update:isOpen'])
 
 const cart = useCartStore()
-// const router = useRouter()
+const router = useRouter() // 👈 ya no lo dejes comentado
 
 const total = computed(() =>
   cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0)
@@ -65,9 +65,12 @@ const total = computed(() =>
 
 function goToCheckout() {
   // Mostrar alert simulando pago
-  alert(`Pago simulado de Q${total.value}! Gracias por tu compra.`)
-  cart.clearCart()
-  emit('update:isOpen', false)
+  alert('Redirigiendo a la página de pago (simulado) 🛒💳')
+  // 👇 Opción 1: ignorar promesa (recomendado en este caso)
+  void router.push('/checkout')
+
+  // 👇 Opción 2: si quieres esperar que cargue la página de checkout
+  // await router.push('/checkout')  <-- para esto tendrías que marcar la función como async
 }
 </script>
 
